@@ -1,0 +1,341 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Bluewave Holidays Travel AI Agent API",
+      "version": "1.0.0",
+      "description": "Welcome to Bluewave Holidays Travel AI Agent API. I'm your AI travel assistant, here to help you plan an unforgettable luxury vacation in the Maldives. Dive into the vibrant marine life, sail towards fiery sunsets, and bask in the paradise of the Maldives. Enter your query to start and I'll provide insights from our extensive data to craft your perfect getaway."
+    },
+    "paths": {
+      "/plan-vacation": {
+        "post": {
+          "summary": "Plan a Maldives vacation",
+          "description": "Plan a luxury vacation in the Maldives based on provided budget and preferences.",
+          "operationId": "planVacation",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "budget": {
+                      "type": "number",
+                      "description": "Budget for the vacation in USD"
+                    },
+                    "preferences": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "User's vacation preferences (e.g., overwater villa, spa, diving, private beach)"
+                    },
+                    "startDate": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "Start date of the vacation"
+                    },
+                    "endDate": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "End date of the vacation"
+                    }
+                  },
+                  "required": [
+                    "budget",
+                    "preferences",
+                    "startDate",
+                    "endDate"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Vacation planning successful",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "itineraryId": {
+                        "type": "string",
+                        "description": "ID of the generated itinerary"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request. One or more required fields are missing or invalid."
+            }
+          }
+        }
+      },
+      "/generate-itinerary": {
+        "get": {
+          "summary": "Generate itinerary",
+          "description": "Generate a detailed itinerary for a Maldives vacation using the provided itinerary ID.",
+          "operationId": "generateItinerary",
+          "parameters": [
+            {
+              "name": "itineraryId",
+              "in": "query",
+              "description": "ID of the itinerary",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Itinerary generation successful",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "itinerary": {
+                        "type": "string",
+                        "description": "Detailed itinerary of the vacation"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request. One or more required fields are missing or invalid."
+            }
+          }
+        }
+      },
+      "/send-itinerary": {
+        "post": {
+          "summary": "Send itinerary",
+          "description": "Send the generated itinerary via email or SMS.",
+          "operationId": "sendItinerary",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "itineraryId": {
+                      "type": "string",
+                      "description": "ID of the itinerary to be sent"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": ["email", "sms"],
+                      "description": "Method of sending the itinerary"
+                    },
+                    "contact": {
+                      "type": "string",
+                      "description": "Email address or phone number of the recipient"
+                    }
+                  },
+                  "required": [
+                    "itineraryId",
+                    "method",
+                    "contact"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Itinerary sent successfully"
+            },
+            "400": {
+              "description": "Bad request. One or more required fields are missing or invalid."
+            }
+          }
+        }
+      },
+      "/available-resorts": {
+        "get": {
+          "summary": "Get available resorts",
+          "description": "Retrieve a list of available luxury resorts in the Maldives based on user preferences.",
+          "operationId": "getAvailableResorts",
+          "parameters": [
+            {
+              "name": "preferences",
+              "in": "query",
+              "description": "Comma-separated list of user preferences (e.g., overwater villa, spa, diving, private beach)",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Available resorts retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "resorts": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "List of available resorts"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request. Invalid preferences format."
+            }
+          }
+        }
+      },
+      "/book-accommodation": {
+        "post": {
+          "summary": "Book accommodation",
+          "description": "Book luxury accommodation in the Maldives based on the itinerary ID and accommodation details.",
+          "operationId": "bookAccommodation",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "itineraryId": {
+                      "type": "string",
+                      "description": "ID of the itinerary"
+                    },
+                    "accommodationDetails": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the accommodation"
+                        },
+                        "address": {
+                          "type": "string",
+                          "description": "Address of the accommodation"
+                        },
+                        "checkInDate": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Check-in date"
+                        },
+                        "checkOutDate": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Check-out date"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "address",
+                        "checkInDate",
+                        "checkOutDate"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "itineraryId",
+                    "accommodationDetails"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Accommodation booking successful",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "bookingId": {
+                        "type": "string",
+                        "description": "ID of the accommodation booking"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request. One or more required fields are missing or invalid."
+            }
+          }
+        }
+      },
+      "/review-itinerary": {
+        "get": {
+          "summary": "Review itinerary",
+          "description": "Review the details of the Maldives vacation itinerary based on the itinerary ID.",
+          "operationId": "reviewItinerary",
+          "parameters": [
+            {
+              "name": "itineraryId",
+              "in": "query",
+              "description": "ID of the itinerary",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Itinerary review successful",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "itinerary": {
+                        "type": "string",
+                        "description": "Detailed itinerary of the vacation"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request. One or more required fields are missing or invalid."
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer",
+              "description": "Error code"
+            },
+            "message": {
+              "type": "string",
+              "description": "Error message"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ]
+        }
+      }
+    }
+  }
+  
