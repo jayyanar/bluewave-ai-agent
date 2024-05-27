@@ -1,4 +1,4 @@
-Bluewave Holidays Travel AI Agent - README
+### Bluewave Holidays Travel AI Agent - README
 Welcome to the Bluewave Holidays Travel AI Agent project, focusing on planning luxury vacations in the Maldives. This guide will walk you through the setup and usage of an AI-powered Booking Assistant using Amazon Bedrock Agents.
 
 Agent Overview
