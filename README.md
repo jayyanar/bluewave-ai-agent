@@ -5,7 +5,15 @@ Welcome to the Bluewave Holidays Travel AI Agent project, focusing on planning l
 Our AI Booking Assistant helps you plan your dream vacation in the Maldives. 🌴 Dive into vibrant marine life, sail towards fiery sunsets, and bask in paradise. Ready for an unforgettable getaway? Let's get started!
 
 
-## Build a Chat Interface to Improve Productivty
+## Improved efficiency in Travel Customer Service using Amazon Q's  
+
+![Screenshot 2024-05-27 at 3 40 50 PM](https://github.com/jayyanar/bluewave-ai-agent/assets/12956021/5d8563e1-b178-41ee-97df-41932a9e2a8f)
+
+
+## Detailed Information on Youtube: https://youtu.be/FGaIxlvWVhw
+
+[![IMAGE ALT TEXT HERE]![Screenshot 2024-05-23 at 10 51 00 AM](https://github.com/jayyanar/bluewave-ai-agent/assets/12956021/ae95b5bf-e4ba-4316-858a-11dd762ea673)
+](https://www.youtube.com/watch?v=FGaIxlvWVhw)
 
 ### 1\. Developer Setup and Deployment
 
